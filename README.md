@@ -12,6 +12,16 @@ npm start
 
 Open <http://localhost:3000>.
 
+## CI/CD
+
+GitHub Actions runs tests on Node.js 20 and 22, audits production dependencies, and builds the application container on pushes to `main`. The CD workflow publishes the image to GitHub Container Registry:
+
+```text
+ghcr.io/rhaaghavans/secure-auth-demo:latest
+```
+
+The image stores SQLite data in `/app/data`; mount a persistent volume there for deployments. The workflow requires no custom secret because it uses the repository-provided `GITHUB_TOKEN`.
+
 ## Security and OSINT/privacy measures
 
 - Do not expose `data/auth.sqlite` or `.env` publicly; both are ignored by Git.
